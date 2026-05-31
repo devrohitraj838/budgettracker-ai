@@ -1,8 +1,10 @@
+import Card from "./Card";
 function Dashboard(){
     return(
         <div>
-            <p>Expense: 0</p>
-            <p>Budget: 5000</p>
+            <Card title ="Expense" amount = "1000"/>
+            <Card title ="Budget" amount = "5000"/>
+            <Card title ="Saving" amount = "4000"/>
         </div>
     );
 }
