@@ -1,10 +1,13 @@
 import Card from "./Card";
-function Dashboard(){
+function Dashboard({expenses}){
+    const budget = 5000;
+    const totalExpense = expenses.reduce((curr,sum) => curr+Number(sum.amount),0);
+    const saving = budget - totalExpense;
     return(
         <div>
-            <Card title ="Expense" amount = "1000"/>
-            <Card title ="Budget" amount = "5000"/>
-            <Card title ="Saving" amount = "4000"/>
+            <Card title = "Budget" amount = {budget}></Card>
+            <Card title = "Total Expenses" amount = {totalExpense}></Card> 
+            <Card title = "Savings" amount = {saving}></Card> 
         </div>
     );
 }

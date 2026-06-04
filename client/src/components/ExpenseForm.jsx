@@ -1,14 +1,13 @@
 import { useState } from "react";
-function ExpenseForm(){
+function ExpenseForm({expenses,setExpenses}){
     const[expenseName,setName] = useState("");
     const[expenseAmount,setAmount] = useState("");
-    const[expenses,setExpense] = useState([]);
     function handleAddExpense(){
         const newExpense = {
             name : expenseName,
             amount : expenseAmount
         };
-        setExpense([...expenses,newExpense]);
+        setExpenses([...expenses,newExpense]);
         setName("");
         setAmount("");
     }
@@ -33,8 +32,8 @@ function ExpenseForm(){
             <button onClick={handleAddExpense}>Add Expense</button>
             <h3>Expenses</h3>
             {
-                expenses.map((expense) =>
-                <div>
+                expenses.map((expense,index) =>
+                <div key={index}>
                     <p>{expense.name} - {expense.amount}</p>
                 </div>
                 )
