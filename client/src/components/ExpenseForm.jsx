@@ -2,10 +2,12 @@ import { useState } from "react";
 function ExpenseForm({expenses,setExpenses}){
     const[expenseName,setName] = useState("");
     const[expenseAmount,setAmount] = useState("");
+    const[category,setCategory] = useState("Food");
     function handleAddExpense(){
         const newExpense = {
             name : expenseName,
-            amount : expenseAmount
+            amount : expenseAmount,
+            category:category
         };
         setExpenses([...expenses,newExpense]);
         setName("");
@@ -17,6 +19,7 @@ function ExpenseForm({expenses,setExpenses}){
             <input type="text"
             placeholder="Enter expense name"
             value={expenseName}
+            
             onChange={(e) => setName(e.target.value)}
             >
             </input>
@@ -27,6 +30,16 @@ function ExpenseForm({expenses,setExpenses}){
             value={expenseAmount}
             onChange={(e) => setAmount(e.target.value)}>
             </input>
+            <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            >
+                <option value="Food">Food</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Travel">Travel</option>
+                <option value="Bills">Bills</option>
+
+            </select>
             <br>
             </br>
             <button onClick={handleAddExpense}>Add Expense</button>
@@ -34,7 +47,7 @@ function ExpenseForm({expenses,setExpenses}){
             {
                 expenses.map((expense,index) =>
                 <div key={index}>
-                    <p>{expense.name} - {expense.amount}</p>
+                    <p>{expense.name} - {expense.amount} - {expense.category}</p>
                 </div>
                 )
             }
