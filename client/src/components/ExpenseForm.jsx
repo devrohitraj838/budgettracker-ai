@@ -13,6 +13,12 @@ function ExpenseForm({expenses,setExpenses}){
         setName("");
         setAmount("");
     }
+    function handleDeleteExpense(deleteIndex){
+        const upadtedExpenses = expenses.filter((expense,index) => 
+        index !=deleteIndex
+        );
+        setExpenses(upadtedExpenses);
+    }
     return(
         <div>
             <h3>Add Expenses</h3>
@@ -48,9 +54,11 @@ function ExpenseForm({expenses,setExpenses}){
                 expenses.map((expense,index) =>
                 <div key={index}>
                     <p>{expense.name} - {expense.amount} - {expense.category}</p>
+                    <button onClick={() =>handleDeleteExpense(index)}>Delete</button>
                 </div>
                 )
             }
+            
         </div>
     );
 }
