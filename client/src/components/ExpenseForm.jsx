@@ -5,6 +5,14 @@ function ExpenseForm({expenses,setExpenses}){
     const[category,setCategory] = useState("Food");
     const[editIndex,setEditIndex] = useState(null);
     function handleAddExpense(){
+        if(
+            expenseName.trim() === "" ||
+            expenseAmount === ""
+        ){
+            alert("Please fill all required field");
+            return;
+        }
+        
         const newExpense = {
             name : expenseName,
             amount : expenseAmount,
@@ -40,7 +48,7 @@ function ExpenseForm({expenses,setExpenses}){
     }
     function handleDeleteExpense(deleteIndex){
         const upadtedExpenses = expenses.filter((expense,index) => 
-        index !=deleteIndex
+        index !==deleteIndex
         );
         setExpenses(upadtedExpenses);
     }
@@ -73,16 +81,19 @@ function ExpenseForm({expenses,setExpenses}){
             </select>
             <br>
             </br>
-            <button onClick={handleAddExpense}>Add Expense</button>
+            <button onClick={handleAddExpense}>{editIndex===null?"Add Expense":"Update Expense"}</button>
             <h3>Expenses</h3>
             {
+                expenses.length ===0 ?(
+                    <p>No expenses added yet</p>
+                ):(
                 expenses.map((expense,index) =>
                 <div key={index}>
                     <p>{expense.name} - {expense.amount} - {expense.category}</p>
                     <button onClick={() => handleEditExpense(index)}>Edit</button>
                     <button onClick={() =>handleDeleteExpense(index)}>Delete</button>
                 </div>
-                )
+                ))
             }
             
         </div>

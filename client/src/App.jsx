@@ -1,3 +1,4 @@
+import "./App.css";
 import { useState } from "react";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
