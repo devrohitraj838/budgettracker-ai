@@ -3,15 +3,40 @@ function ExpenseForm({expenses,setExpenses}){
     const[expenseName,setName] = useState("");
     const[expenseAmount,setAmount] = useState("");
     const[category,setCategory] = useState("Food");
+    const[editIndex,setEditIndex] = useState(null);
     function handleAddExpense(){
         const newExpense = {
             name : expenseName,
             amount : expenseAmount,
             category:category
         };
-        setExpenses([...expenses,newExpense]);
+        if (editIndex === null){
+
+            setExpenses([...expenses,newExpense]);
+        }
+        else{
+            const upadedExpense = expenses.map((expense,index) =>{
+                if(index === editIndex){
+                    return newExpense;
+                }
+    
+                    return expense
+            });
+            setExpenses(upadedExpense);
+            setEditIndex(null);
+        }
+        
         setName("");
         setAmount("");
+    }
+    function handleEditExpense(index){
+        
+        const expense= expenses[index];
+        setName(expense.name);
+        setAmount(expense.amount);
+        setCategory(expense.category);
+        setEditIndex(index);
+
     }
     function handleDeleteExpense(deleteIndex){
         const upadtedExpenses = expenses.filter((expense,index) => 
@@ -54,6 +79,7 @@ function ExpenseForm({expenses,setExpenses}){
                 expenses.map((expense,index) =>
                 <div key={index}>
                     <p>{expense.name} - {expense.amount} - {expense.category}</p>
+                    <button onClick={() => handleEditExpense(index)}>Edit</button>
                     <button onClick={() =>handleDeleteExpense(index)}>Delete</button>
                 </div>
                 )
