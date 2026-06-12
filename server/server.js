@@ -32,6 +32,30 @@ app.get("/expenses/:id", (req, res) => {
 
   res.json(expense);
 });
+app.put("/expenses/:id", (req, res) => {
+  const expenseId = Number(req.params.id);
+
+  const { title, amount } = req.body;
+
+  if (!title || !amount) {
+    return res.status(400).json({
+      message: "Enter all required values",
+    });
+  }
+
+  res.json({
+    id: expenseId,
+    title,
+    amount,
+  });
+});
+app.delete("/expenses/:id", (req, res) => {
+  const expenseId = Number(req.params.id);
+
+  res.json({
+    message: `Expense ${expenseId} deleted`,
+  });
+});
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
