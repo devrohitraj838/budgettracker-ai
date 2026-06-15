@@ -1,7 +1,8 @@
+const Expense = require("./models/Expense");
 require("dotenv").config();
-console.log(process.env.MONGO_URI);
 const express = require("express");
 const mongoose = require("mongoose");
+console.log("Trying to connect to MongoDB...");
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -17,7 +18,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("BudgetTracker Backend Running");
 });
-app.post("/expenses", (req, res) => {
+app.post("/expenses", async (req, res) => {
   const { title, amount } = req.body;
 
   if (!title || !amount) {
@@ -26,7 +27,9 @@ app.post("/expenses", (req, res) => {
     });
   }
 
-  res.status(201).json(req.body);
+  const expense = await Expense.create(req.body);
+
+  res.status(201).json(expense);
 });
 app.get("/expenses/:id", (req, res) => {
   const expenses = [
