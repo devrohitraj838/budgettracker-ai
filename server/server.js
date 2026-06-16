@@ -1,8 +1,14 @@
-const Expense = require("./models/Expense");
 require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
-console.log("Trying to connect to MongoDB...");
+const Expense = require("./models/Expense");
+
+const app = express();
+
+app.use(express.json());
+
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -12,57 +18,107 @@ mongoose
     console.log(error);
   });
 
-const app = express();
-app.use(express.json());
-
-
+// GET ALL EXPENSES
 app.get("/expenses", async (req, res) => {
-  const expenses = await Expense.find();
+  try {
+    const expenses = await Expense.find();
 
-  res.json(expenses);
-});
-app.post("/expenses", async (req, res) => {
-  const { title, amount } = req.body;
-
-  if (!title || !amount) {
-    return res.status(400).json({
-      message: "Title and amount are required",
+    res.json(expenses);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
     });
   }
-
-  const expense = await Expense.create(req.body);
-
-  res.status(201).json(expense);
 });
+
+// GET SINGLE EXPENSE
 app.get("/expenses/:id", async (req, res) => {
-  const expense = await Expense.findById(req.params.id);
+  try {
+    const expense = await Expense.findById(req.params.id);
 
-  res.json(expense);
-});
+    if (!expense) {
+      return res.status(404).json({
+        message: "Expense not found",
+      });
+    }
 
-
-
-app.put("/expenses/:id", async (req, res) => {
-  const { title, amount } = req.body;
-
-  if (!title || !amount) {
-    return res.status(400).json({
-      message: "Enter all required values",
+    res.json(expense);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
     });
   }
-
-  const expense = await Expense.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
-
-  res.json(expense);
 });
-app.delete("/expenses/:id", async (req, res) => {
-  const expense = await Expense.findByIdAndDelete(req.params.id);
 
-  res.json(expense);
+// CREATE EXPENSE
+app.post("/expenses", async (req, res) => {
+  try {
+    const { title, amount } = req.body;
+
+    if (!title || !amount) {
+      return res.status(400).json({
+        message: "Title and amount are required",
+      });
+    }
+
+    const expense = await Expense.create(req.body);
+
+    res.status(201).json(expense);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// UPDATE EXPENSE
+app.put("/expenses/:id", async (req, res) => {
+  try {
+    const { title, amount } = req.body;
+
+    if (!title || !amount) {
+      return res.status(400).json({
+        message: "Enter all required values",
+      });
+    }
+
+    const expense = await Expense.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    if (!expense) {
+      return res.status(404).json({
+        message: "Expense not found",
+      });
+    }
+
+    res.json(expense);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// DELETE EXPENSE
+app.delete("/expenses/:id", async (req, res) => {
+  try {
+    const expense = await Expense.findByIdAndDelete(req.params.id);
+
+    if (!expense) {
+      return res.status(404).json({
+        message: "Expense not found",
+      });
+    }
+
+    res.json(expense);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 });
 
 app.listen(5000, () => {
