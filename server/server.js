@@ -15,8 +15,11 @@ mongoose
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("BudgetTracker Backend Running");
+
+app.get("/expenses", async (req, res) => {
+  const expenses = await Expense.find();
+
+  res.json(expenses);
 });
 app.post("/expenses", async (req, res) => {
   const { title, amount } = req.body;
@@ -31,24 +34,15 @@ app.post("/expenses", async (req, res) => {
 
   res.status(201).json(expense);
 });
-app.get("/expenses/:id", (req, res) => {
-  const expenses = [
-    { id: 1, title: "Pizza", amount: 300 },
-    { id: 2, title: "Movie", amount: 500 },
-  ];
-
-
-  const expenseId = Number(req.params.id);
-
-  const expense = expenses.find(
-    item => item.id === expenseId
-  );
+app.get("/expenses/:id", async (req, res) => {
+  const expense = await Expense.findById(req.params.id);
 
   res.json(expense);
 });
-app.put("/expenses/:id", (req, res) => {
-  const expenseId = Number(req.params.id);
 
+
+
+app.put("/expenses/:id", async (req, res) => {
   const { title, amount } = req.body;
 
   if (!title || !amount) {
@@ -57,18 +51,18 @@ app.put("/expenses/:id", (req, res) => {
     });
   }
 
-  res.json({
-    id: expenseId,
-    title,
-    amount,
-  });
-});
-app.delete("/expenses/:id", (req, res) => {
-  const expenseId = Number(req.params.id);
+  const expense = await Expense.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
 
-  res.json({
-    message: `Expense ${expenseId} deleted`,
-  });
+  res.json(expense);
+});
+app.delete("/expenses/:id", async (req, res) => {
+  const expense = await Expense.findByIdAndDelete(req.params.id);
+
+  res.json(expense);
 });
 
 app.listen(5000, () => {
