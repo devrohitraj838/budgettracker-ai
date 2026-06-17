@@ -141,27 +141,25 @@ function ExpenseForm({ expenses, setExpenses }) {
         <p>No expenses added yet</p>
       ) : (
         expenses.map((expense) => (
-          <div key={expense._id}>
+          <div key={expense._id} className="expense-card">
             <p>
               {expense.title} - ₹{expense.amount} -{" "}
               {expense.category}
             </p>
 
             <button
-              onClick={() =>
-                handleEditExpense(expense)
-              }
-            >
-              Edit
-            </button>
+  className="edit-btn"
+  onClick={() => handleEditExpense(expense)}
+>
+  Edit
+</button>
 
-            <button
-              onClick={() =>
-                handleDeleteExpense(expense._id)
-              }
-            >
-              Delete
-            </button>
+<button
+  className="delete-btn"
+  onClick={() => handleDeleteExpense(expense._id)}
+>
+  Delete
+</button>
           </div>
         ))
       )}

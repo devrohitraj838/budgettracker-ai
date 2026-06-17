@@ -11,14 +11,67 @@ button {
   padding: 8px;
   margin: 8px;
 }
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
 
 .card {
-  border: 1px solid #444;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 10px auto;
-  width: 250px;
+  min-width: 220px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #2f3b5c;
+  background-color: #07132f;
+  transition: transform 0.3s ease;
 }
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.expense-card {
+  background-color: #07132f;
+  border: 1px solid #2f3b5c;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 15px auto;
+  width: 320px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-4px);
+}
+
+.expense-card p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+
+.edit-btn {
+  background-color: #2563eb;
+  color: white;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  background-color: #dc2626;
+  color: white;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 
 @media (max-width: 768px) {
   .card {

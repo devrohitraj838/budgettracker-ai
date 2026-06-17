@@ -4,7 +4,7 @@ function Dashboard({expenses}){
     const totalExpense = expenses.reduce((curr,sum) => curr+Number(sum.amount),0);
     const saving = budget - totalExpense;
     return(
-        <div>
+        <div className="dashboard-container">
             <Card title = "Budget" amount = {budget}></Card>
             <Card title = "Total Expenses" amount = {totalExpense}></Card> 
             <Card title = "Savings" amount = {saving}></Card> 
