@@ -1,3 +1,10 @@
+import {
+  FaUtensils,
+  FaPlane,
+  FaShoppingBag,
+  FaFileInvoiceDollar
+} from "react-icons/fa";
+
 import { useState } from "react";
 
 function ExpenseForm({ expenses, setExpenses }) {
@@ -5,6 +12,7 @@ function ExpenseForm({ expenses, setExpenses }) {
   const [expenseAmount, setAmount] = useState("");
   const [category, setCategory] = useState("Food");
   const [editId, setEditId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   async function handleAddExpense() {
     if (
@@ -96,6 +104,45 @@ function ExpenseForm({ expenses, setExpenses }) {
       console.log(error);
     }
   }
+  const filteredExpenses = expenses.filter((expense) =>
+  expense.title
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase())
+);
+function getCategoryBadge(category) {
+  switch (category) {
+    case "Food":
+      return (
+        <span className="badge food">
+          <FaUtensils /> Food
+        </span>
+      );
+
+    case "Travel":
+      return (
+        <span className="badge travel">
+          <FaPlane /> Travel
+        </span>
+      );
+
+    case "Shopping":
+      return (
+        <span className="badge shopping">
+          <FaShoppingBag /> Shopping
+        </span>
+      );
+
+    case "Bills":
+      return (
+        <span className="badge bills">
+          <FaFileInvoiceDollar /> Bills
+        </span>
+      );
+
+    default:
+      return category;
+  }
+}
 
   return (
     <div>
@@ -135,17 +182,25 @@ function ExpenseForm({ expenses, setExpenses }) {
           : "Update Expense"}
       </button>
 
+      <input
+  type="text"
+  placeholder="🔍 Search expenses..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+/>
+
       <h3>Expenses</h3>
 
       {expenses.length === 0 ? (
         <p>No expenses added yet</p>
       ) : (
-        expenses.map((expense) => (
+        filteredExpenses.map((expense) => (
           <div key={expense._id} className="expense-card">
-            <p>
-              {expense.title} - ₹{expense.amount} -{" "}
-              {expense.category}
-            </p>
+            <h3>{expense.title}</h3>
+
+<p>₹{expense.amount}</p>
+
+{getCategoryBadge(expense.category)}
 
             <button
   className="edit-btn"

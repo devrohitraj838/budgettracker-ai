@@ -73,6 +73,33 @@ button {
 }
 
 
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.food {
+  background: #14532d;
+}
+
+.travel {
+  background: #1e3a8a;
+}
+
+.shopping {
+  background: #581c87;
+}
+
+.bills {
+  background: #7f1d1d;
+}
+
+
 @media (max-width: 768px) {
   .card {
     width: 90%;
