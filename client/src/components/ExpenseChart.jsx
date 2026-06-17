@@ -26,7 +26,7 @@ function ExpenseChart({ expenses }) {
   ];
 
   return (
-    <div>
+    <div className="chart-container">
       <h2>Expense Breakdown</h2>
 
       <PieChart width={400} height={300}>

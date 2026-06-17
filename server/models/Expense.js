@@ -4,8 +4,15 @@ const expenseSchema = new mongoose.Schema({
   title: String,
   amount: Number,
   category: String,
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Expense = mongoose.model("Expense", expenseSchema);
+const Expense = mongoose.model(
+  "Expense",
+  expenseSchema
+);
 
 module.exports = Expense;

@@ -145,7 +145,7 @@ function getCategoryBadge(category) {
 }
 
   return (
-    <div>
+    <div className="form-card">
       <h3>Add Expenses</h3>
 
       <input
@@ -196,11 +196,19 @@ function getCategoryBadge(category) {
       ) : (
         filteredExpenses.map((expense) => (
           <div key={expense._id} className="expense-card">
-            <h3>{expense.title}</h3>
+            <div>
+  <h3>{expense.title}</h3>
 
-<p>₹{expense.amount}</p>
+  <p>₹{expense.amount}</p>
 
-{getCategoryBadge(expense.category)}
+  {getCategoryBadge(expense.category)}
+
+  {expense.date && (
+    <p>
+      {new Date(expense.date).toLocaleDateString()}
+    </p>
+  )}
+</div>
 
             <button
   className="edit-btn"

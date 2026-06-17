@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Expense = require("./models/Expense");
+const Budget = require("./models/Budget");
 
 const app = express();
 
@@ -115,6 +116,39 @@ app.delete("/expenses/:id", async (req, res) => {
     }
 
     res.json(expense);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+app.get("/budget", async (req, res) => {
+  try {
+    const budget = await Budget.findOne();
+
+    res.json(budget);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+app.put("/budget", async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    let budget = await Budget.findOne();
+
+    if (!budget) {
+      budget = await Budget.create({
+        amount,
+      });
+    } else {
+      budget.amount = amount;
+      await budget.save();
+    }
+
+    res.json(budget);
   } catch (error) {
     res.status(500).json({
       message: error.message,

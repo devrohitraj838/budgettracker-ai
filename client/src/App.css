@@ -99,6 +99,45 @@ button {
   background: #7f1d1d;
 }
 
+.logo-icon {
+  margin-right: 10px;
+  color: #22c55e;
+}
+
+.negative {
+  color: red;
+}
+
+
+.form-card {
+  background-color: #07132f;
+  border: 1px solid #2f3b5c;
+  border-radius: 12px;
+  padding: 25px;
+  width: 450px;
+  margin: 30px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.expense-card h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.budget-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.budget-controls input {
+  width: 150px;
+}
+
+.budget-controls button {
+  width: auto;
+}
 
 @media (max-width: 768px) {
   .card {
