@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import ExpenseForm from "./components/ExpenseForm";
+import ExpenseChart from "./components/ExpenseChart";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
@@ -18,6 +19,13 @@ function App() {
     <>
       <Navbar />
       <Dashboard expenses={expenses} />
+
+<ExpenseChart expenses={expenses} />
+
+<ExpenseForm
+  expenses={expenses}
+  setExpenses={setExpenses}
+/>
       <ExpenseForm
         expenses={expenses}
         setExpenses={setExpenses}
