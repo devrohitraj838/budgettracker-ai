@@ -6,6 +6,8 @@ import {
 } from "react-icons/fa";
 
 import { useState } from "react";
+const API_URL =
+  "https://budgettracker-ai-backend.onrender.com";
 
 function ExpenseForm({ expenses, setExpenses }) {
   const [expenseName, setName] = useState("");
@@ -26,7 +28,7 @@ function ExpenseForm({ expenses, setExpenses }) {
     try {
       if (editId === null) {
         const response = await fetch(
-          "http://localhost:5000/expenses",
+          `${API_URL}/expenses`,
           {
             method: "POST",
             headers: {
@@ -45,8 +47,8 @@ function ExpenseForm({ expenses, setExpenses }) {
         setExpenses([...expenses, savedExpense]);
       } else {
         const response = await fetch(
-          `http://localhost:5000/expenses/${editId}`,
-          {
+  `${API_URL}/expenses/${editId}`,
+  {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -89,7 +91,7 @@ function ExpenseForm({ expenses, setExpenses }) {
   async function handleDeleteExpense(id) {
     try {
       await fetch(
-        `http://localhost:5000/expenses/${id}`,
+        `${API_URL}/expenses/${id}`,
         {
           method: "DELETE",
         }
