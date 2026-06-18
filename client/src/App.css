@@ -141,18 +141,25 @@ button {
 
 .ai-card {
   width: 80%;
-  max-width: 1000px;
+  max-width: 900px;
   margin: 30px auto;
   padding: 25px;
   border-radius: 15px;
-  border: 1px solid #2c4a8a;
-  background: rgba(0,0,0,0.1);
+  background: #07132f;
+  border: 1px solid #2f3b5c;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.ai-card h2 {
+  margin-bottom: 20px;
 }
 
 .analysis-result {
   margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #0f1d45;
   line-height: 1.8;
-  font-size: 18px;
   white-space: pre-wrap;
 }
 
@@ -164,6 +171,21 @@ button {
   border-top: 5px solid #00ff99;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+.ai-btn {
+  background: #6d92f8;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ai-btn:hover {
+  opacity: 0.9;
+  color: yellow;
 }
 
 @keyframes spin {

@@ -188,7 +188,7 @@ Provide insights in this format:
 ⚠️ Budget Status
 ...
 
-💡 AI Recommendations
+💡Recommendations
 • Tip 1
 • Tip 2
 • Tip 3

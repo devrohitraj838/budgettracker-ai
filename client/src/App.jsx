@@ -88,9 +88,7 @@ async function analyzeExpenses() {
   setBudget={setBudget}
   updateBudget={updateBudget}
 />
-<button onClick={updateBudget}>
-  Update Budget
-</button>
+
 
 <ExpenseChart expenses={expenses} />
 <AIInsights
