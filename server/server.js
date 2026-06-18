@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const Expense = require("./models/Expense");
 const Budget = require("./models/Budget");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const genAI = new GoogleGenerativeAI(
+  process.env.GEMINI_API_KEY
+);
 
 const app = express();
 
@@ -150,6 +155,61 @@ app.put("/budget", async (req, res) => {
 
     res.json(budget);
   } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+app.post("/analyze", async (req, res) => {
+  try {
+    const { expenses, budget } = req.body;
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+    });
+
+   const prompt = `
+You are a personal finance assistant.
+
+Budget: ₹${budget}
+
+Expenses:
+${JSON.stringify(expenses, null, 2)}
+
+Provide insights in this format:
+
+💰 Total Spending
+...
+
+📊 Biggest Category
+...
+
+⚠️ Budget Status
+...
+
+💡 AI Recommendations
+• Tip 1
+• Tip 2
+• Tip 3
+
+Keep the response under 120 words.
+Use emojis.
+Be concise.
+`;
+
+
+    const result = await model.generateContent(
+      prompt
+    );
+
+    const analysis =
+      result.response.text();
+
+    res.json({ analysis });
+  } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       message: error.message,
     });

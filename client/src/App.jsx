@@ -4,10 +4,13 @@ import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseChart from "./components/ExpenseChart";
+import AIInsights from "./components/AIInsights";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
     const [budget, setBudget] = useState(0);
+    const [analysis, setAnalysis] = useState("");
+const [loading, setLoading] = useState(false);
 
  useEffect(() => {
   fetch("http://localhost:5000/expenses")
@@ -47,6 +50,33 @@ function App() {
     console.log(error);
   }
 }
+async function analyzeExpenses() {
+  try {
+    setLoading(true);
+
+    const response = await fetch(
+      "http://localhost:5000/analyze",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          expenses,
+          budget,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    setAnalysis(data.analysis);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+}
 
 
   return (
@@ -63,6 +93,11 @@ function App() {
 </button>
 
 <ExpenseChart expenses={expenses} />
+<AIInsights
+  analysis={analysis}
+  loading={loading}
+  analyzeExpenses={analyzeExpenses}
+/>
 
       <ExpenseForm
         expenses={expenses}
