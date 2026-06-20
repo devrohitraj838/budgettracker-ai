@@ -114,8 +114,9 @@ button {
   border: 1px solid #2f3b5c;
   border-radius: 12px;
   padding: 25px;
-  width: 450px;
-  margin: 30px auto;
+  width: 650px;
+  max-width: 90%;
+  margin: 40px auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -127,8 +128,12 @@ button {
 .budget-controls {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 15px;
   margin: 20px 0;
+}
+.budget-controls input {
+  width: 220px;
 }
 
 .budget-controls input {
@@ -152,16 +157,10 @@ button {
 
 .ai-card h2 {
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.analysis-result {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  background: #0f1d45;
-  line-height: 1.8;
-  white-space: pre-wrap;
-}
+.analysis-result { margin-top: 20px; padding: 15px; border-radius: 10px; background: #0f1d45; line-height: 1.8; white-space: pre-wrap; }
 
 .loader {
   margin: 20px auto;
@@ -174,18 +173,24 @@ button {
 }
 
 .ai-btn {
-  background: #6d92f8;
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #7c3aed
+  );
   color: white;
   border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s ease;
 }
 
 .ai-btn:hover {
-  opacity: 0.9;
-  color: yellow;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
 }
 .chart-container {
   display: flex;
@@ -207,6 +212,14 @@ button {
     align-items: center;
   }
 
+  .card {
+    width: 90%;
+  }
+
+  .form-card {
+    width: 90%;
+  }
+
   .expense-card {
     width: 90%;
   }
@@ -226,5 +239,9 @@ button {
 
   .budget-controls button {
     width: 90%;
+  }
+
+  .chart-container {
+    overflow-x: auto;
   }
 }

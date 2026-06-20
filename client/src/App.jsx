@@ -95,17 +95,19 @@ setAnalysis(data.analysis);
 />
 
 
-<ExpenseChart expenses={expenses} />
-<AIInsights
-  analysis={analysis}
-  loading={loading}
-  analyzeExpenses={analyzeExpenses}
-/>
+
+
 
       <ExpenseForm
         expenses={expenses}
         setExpenses={setExpenses}
       />
+      <ExpenseChart expenses={expenses} />
+      <AIInsights
+  analysis={analysis}
+  loading={loading}
+  analyzeExpenses={analyzeExpenses}
+/>
 
     </>
   );

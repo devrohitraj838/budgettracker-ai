@@ -7,11 +7,14 @@ function AIInsights({
     <div className="ai-card">
   <h2>🤖 AI Spending Insights</h2>
 
-  <button
+ <button
   className="ai-btn"
   onClick={analyzeExpenses}
+  disabled={loading}
 >
-  🤖 Analyze Spending
+  {loading
+    ? "Analyzing..."
+    : "✨ Generate AI Insights"}
 </button>
 
   {loading && (
