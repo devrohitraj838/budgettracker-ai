@@ -90,18 +90,15 @@ setExpenses([savedExpense, ...expenses]);
 
   async function handleDeleteExpense(id) {
     try {
-      await fetch(
-        `${API_URL}/expenses/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
       const updatedExpenses = expenses.filter(
-        (expense) => expense._id !== id
-      );
+  (expense) => expense._id !== id
+);
 
-      setExpenses(updatedExpenses);
+setExpenses(updatedExpenses);
+
+await fetch(`${API_URL}/expenses/${id}`, {
+  method: "DELETE",
+});
     } catch (error) {
       console.log(error);
     }

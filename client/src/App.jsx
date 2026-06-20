@@ -16,9 +16,8 @@ const [loading, setLoading] = useState(false);
 
  useEffect(() => {
   fetch(`${API_URL}/expenses`)
-    .then((res) => res.json())
-    .then((data) => setExpenses(data));
-
+  .then((res) => res.json())
+  .then((data) => setExpenses(data.reverse()));
   fetch(`${API_URL}/budget`)
     .then((res) => res.json())
     .then((data) => {
@@ -47,7 +46,7 @@ const [loading, setLoading] = useState(false);
 
     setBudget(data.amount);
 
-    alert("Budget updated successfully!");
+    
   } catch (error) {
     console.log(error);
   }
