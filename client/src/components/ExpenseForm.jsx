@@ -44,7 +44,7 @@ function ExpenseForm({ expenses, setExpenses }) {
 
         const savedExpense = await response.json();
 
-        setExpenses([...expenses, savedExpense]);
+setExpenses([savedExpense, ...expenses]);
       } else {
         const response = await fetch(
   `${API_URL}/expenses/${editId}`,
