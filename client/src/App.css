@@ -187,6 +187,12 @@ button {
   opacity: 0.9;
   color: yellow;
 }
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 @keyframes spin {
   100% {

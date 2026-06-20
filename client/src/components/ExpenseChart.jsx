@@ -27,7 +27,9 @@ function ExpenseChart({ expenses }) {
 
   return (
     <div className="chart-container">
-      <h2>Expense Breakdown</h2>
+      <h2 className="chart-title">
+  Expense Breakdown
+</h2>
 
       <PieChart width={400} height={300}>
         <Pie
