@@ -108,6 +108,10 @@ setAnalysis(data.analysis);
   loading={loading}
   analyzeExpenses={analyzeExpenses}
 />
+<p className="demo-note">
+  ⚠️ Demo Version: Data is currently shared among all visitors.
+  Private user accounts and authentication are planned for a future update.
+</p>
 
     </>
   );

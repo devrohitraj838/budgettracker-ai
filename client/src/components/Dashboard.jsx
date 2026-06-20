@@ -14,7 +14,7 @@ function Dashboard({
 <div className="budget-controls">
   <input
     type="number"
-    value={budget}
+    value={budget || ""}
     onChange={(e) =>
       setBudget(Number(e.target.value))
     }

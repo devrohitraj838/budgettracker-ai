@@ -130,18 +130,18 @@ button {
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin: 20px 0;
-}
-.budget-controls input {
-  width: 220px;
+  margin: 25px 0;
 }
 
 .budget-controls input {
-  width: 150px;
+  width: 250px;
+  padding: 12px;
+  border-radius: 8px;
 }
 
 .budget-controls button {
-  width: auto;
+  padding: 12px 20px;
+  border-radius: 8px;
 }
 
 .ai-card {
@@ -196,6 +196,18 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.demo-note {
+  text-align: center;
+  margin: 30px auto;
+  padding: 12px;
+  width: 80%;
+  max-width: 900px;
+  color: #cbd5e1;
+  font-size: 14px;
+  background: #0f1d45;
+  border: 1px solid #2f3b5c;
+  border-radius: 10px;
 }
 
 
