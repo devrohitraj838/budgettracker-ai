@@ -35,12 +35,18 @@ app.post(
   upload.single("receipt"),
   async (req, res) => {
     try {
+      if (!req.file) {
+        return res.status(400).json({
+          message: "No receipt uploaded",
+        });
+      }
+
       const imageBase64 =
         req.file.buffer.toString("base64");
 
       const model =
         genAI.getGenerativeModel({
-          model: "gemini-1.5-flash",
+          model: "gemini-2.5-flash",
         });
 
       const result =
@@ -70,26 +76,51 @@ Rules:
   Food
   Shopping
   Travel
-  Bills
-`,
+  Bills`,
         ]);
 
       const text =
-  result.response.text();
+        result.response.text();
 
-console.log("RAW GEMINI RESPONSE:");
-console.log(text);
+      console.log(
+        "RAW GEMINI RESPONSE:"
+      );
+      console.log(text);
 
-const cleanedText = text
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+      const cleanedText = text
+        .replace(/```json/g, "")
+        .replace(/```/g, "")
+        .trim();
 
-console.log("CLEANED RESPONSE:");
-console.log(cleanedText);
+      let expenseData;
 
-const expenseData =
-  JSON.parse(cleanedText);
+try {
+  expenseData = JSON.parse(cleanedText);
+} catch (err) {
+  console.log(
+    "Failed to parse Gemini response:"
+  );
+  console.log(cleanedText);
+
+  return res.status(500).json({
+    message:
+      "Gemini did not return valid JSON",
+  });
+}
+
+      res.json(expenseData);
+    } catch (error) {
+      console.error(
+        "SCAN ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+);
 app.get("/expenses", async (req, res) => {
   try {
     const expenses = await Expense.find();
