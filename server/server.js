@@ -70,13 +70,18 @@ Return ONLY valid JSON.
 }
 
 Rules:
-- title = merchant/store name
-- amount = total bill amount
+- title = store or merchant name
+- amount = final total amount paid
 - category must be exactly one of:
   Food
   Shopping
   Travel
-  Bills`,
+  Bills
+
+Do not include explanations.
+Do not include markdown.
+Do not include code fences.
+Return JSON only.`,
         ]);
 
       const text =
@@ -88,11 +93,11 @@ Rules:
       console.log(text);
 
       const cleanedText = text
-        .replace(/```json/g, "")
-        .replace(/```/g, "")
-        .trim();
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
 
-      let expenseData;
+let expenseData;
 
 try {
   expenseData = JSON.parse(cleanedText);
@@ -108,7 +113,29 @@ try {
   });
 }
 
-      res.json(expenseData);
+expenseData.title =
+  expenseData.title || "Unknown Store";
+
+expenseData.amount =
+  Number(expenseData.amount) || 0;
+
+const validCategories = [
+  "Food",
+  "Shopping",
+  "Travel",
+  "Bills",
+];
+
+if (
+  !validCategories.includes(
+    expenseData.category
+  )
+) {
+  expenseData.category =
+    "Shopping";
+}
+
+res.json(expenseData);
     } catch (error) {
       console.error(
         "SCAN ERROR:",
