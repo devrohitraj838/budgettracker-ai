@@ -41,9 +41,9 @@ function ExpenseForm({ expenses, setExpenses }) {
 
   const data = await response.json();
 
-  setName(data.title);
-setAmount(data.amount);
-setCategory(data.category);
+  setName(data.title || "");
+setAmount(data.amount || "");
+setCategory(data.category || "Food");
 alert("✅ Receipt scanned successfully");
 }
 
@@ -178,25 +178,29 @@ function getCategoryBadge(category) {
     <div className="form-card">
       <h3>Add Expenses</h3>
 <label className="camera-btn">
-   Add Receipt
+   📷 Add Receipt Image
 
-  <input
-    type="file"
-    accept="image/*"
-    capture="environment"
-    hidden
-    onChange={(e) =>
-      setReceiptImage(e.target.files[0])
-    }
-  />
+ <input
+  type="file"
+  accept="image/*"
+  hidden
+  onChange={(e) =>
+    setReceiptImage(e.target.files[0])
+  }
+/>
 </label>
 
 <button
   className="scan-btn"
   onClick={handleScanReceipt}
 >
-  📷 Scan Receipt with AI
+  ✨ Analyze Receipt
 </button>
+{receiptImage && (
+  <p className="file-name">
+    📄 {receiptImage.name}
+  </p>
+)}
 
 
 
