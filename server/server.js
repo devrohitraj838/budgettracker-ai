@@ -75,29 +75,21 @@ Rules:
         ]);
 
       const text =
-        result.response.text();
+  result.response.text();
 
-      console.log(text);
+console.log("RAW GEMINI RESPONSE:");
+console.log(text);
 
-      const cleanedText = text
+const cleanedText = text
   .replace(/```json/g, "")
   .replace(/```/g, "")
   .trim();
 
+console.log("CLEANED RESPONSE:");
+console.log(cleanedText);
+
 const expenseData =
   JSON.parse(cleanedText);
-
-      res.json(expenseData);
-    } catch (error) {
-      console.log(error);
-
-      res.status(500).json({
-        message:
-          "Failed to scan receipt",
-      });
-    }
-  }
-);
 app.get("/expenses", async (req, res) => {
   try {
     const expenses = await Expense.find();
