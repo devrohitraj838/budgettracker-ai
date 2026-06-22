@@ -230,6 +230,23 @@ button {
 .scan-btn:hover {
   opacity: 0.9;
 }
+.camera-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.camera-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(124, 58, 237, 0.4);
+}
 
 
 @keyframes spin {

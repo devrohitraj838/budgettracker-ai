@@ -41,7 +41,10 @@ function ExpenseForm({ expenses, setExpenses }) {
 
   const data = await response.json();
 
-  console.log(data);
+  setName(data.title);
+setAmount(data.amount);
+setCategory(data.category);
+alert("✅ Receipt scanned successfully");
 }
 
   async function handleAddExpense() {
@@ -174,14 +177,19 @@ function getCategoryBadge(category) {
   return (
     <div className="form-card">
       <h3>Add Expenses</h3>
-<input
-  type="file"
-  accept="image/*"
-  className="receipt-upload"
-  onChange={(e) =>
-    setReceiptImage(e.target.files[0])
-  }
-/>
+<label className="camera-btn">
+   Add Receipt
+
+  <input
+    type="file"
+    accept="image/*"
+    capture="environment"
+    hidden
+    onChange={(e) =>
+      setReceiptImage(e.target.files[0])
+    }
+  />
+</label>
 
 <button
   className="scan-btn"
