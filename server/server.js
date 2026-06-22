@@ -79,8 +79,13 @@ Rules:
 
       console.log(text);
 
-      const expenseData =
-        JSON.parse(text);
+      const cleanedText = text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+const expenseData =
+  JSON.parse(cleanedText);
 
       res.json(expenseData);
     } catch (error) {
