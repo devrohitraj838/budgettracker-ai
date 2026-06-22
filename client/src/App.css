@@ -142,6 +142,7 @@ button {
 .budget-controls button {
   padding: 12px 20px;
   border-radius: 8px;
+  
 }
 
 .ai-card {
@@ -208,6 +209,26 @@ button {
   background: #0f1d45;
   border: 1px solid #2f3b5c;
   border-radius: 10px;
+}
+.receipt-upload {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.scan-btn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #7c3aed;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.scan-btn:hover {
+  opacity: 0.9;
 }
 
 

@@ -12,9 +12,37 @@ const API_URL =
 function ExpenseForm({ expenses, setExpenses }) {
   const [expenseName, setName] = useState("");
   const [expenseAmount, setAmount] = useState("");
+  const [receiptImage, setReceiptImage] =
+  useState(null);
   const [category, setCategory] = useState("Food");
   const [editId, setEditId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  async function handleScanReceipt() {
+  if (!receiptImage) {
+    alert("Please upload a receipt first");
+    return;
+  }
+
+  const formData = new FormData();
+
+  formData.append(
+    "receipt",
+    receiptImage
+  );
+
+  const response = await fetch(
+    `${API_URL}/scan-receipt`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const data = await response.json();
+
+  console.log(data);
+}
 
   async function handleAddExpense() {
     if (
@@ -146,6 +174,23 @@ function getCategoryBadge(category) {
   return (
     <div className="form-card">
       <h3>Add Expenses</h3>
+<input
+  type="file"
+  accept="image/*"
+  className="receipt-upload"
+  onChange={(e) =>
+    setReceiptImage(e.target.files[0])
+  }
+/>
+
+<button
+  className="scan-btn"
+  onClick={handleScanReceipt}
+>
+  📷 Scan Receipt with AI
+</button>
+
+
 
       <input
         type="text"

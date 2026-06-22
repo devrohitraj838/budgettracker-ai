@@ -1,4 +1,8 @@
 require("dotenv").config();
+const multer = require("multer");
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -26,6 +30,69 @@ mongoose
   });
 
 // GET ALL EXPENSES
+app.post(
+  "/scan-receipt",
+  upload.single("receipt"),
+  async (req, res) => {
+    try {
+      const imageBase64 =
+        req.file.buffer.toString("base64");
+
+      const model =
+        genAI.getGenerativeModel({
+          model: "gemini-1.5-flash",
+        });
+
+      const result =
+        await model.generateContent([
+          {
+            inlineData: {
+              data: imageBase64,
+              mimeType:
+                req.file.mimetype,
+            },
+          },
+
+          `Extract expense details from this receipt.
+
+Return ONLY valid JSON.
+
+{
+  "title": "",
+  "amount": 0,
+  "category": ""
+}
+
+Rules:
+- title = merchant/store name
+- amount = total bill amount
+- category must be exactly one of:
+  Food
+  Shopping
+  Travel
+  Bills
+`,
+        ]);
+
+      const text =
+        result.response.text();
+
+      console.log(text);
+
+      const expenseData =
+        JSON.parse(text);
+
+      res.json(expenseData);
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).json({
+        message:
+          "Failed to scan receipt",
+      });
+    }
+  }
+);
 app.get("/expenses", async (req, res) => {
   try {
     const expenses = await Expense.find();
