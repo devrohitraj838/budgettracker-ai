@@ -8,4 +8,4 @@ It’s designed as a practical project for learning modern web development and s
 - **Frontend:** React.js (JavaScript, CSS)
 - **Backend:** Node.js + Express
 - **Database:** MongoDB
-- **AI Module:** Gemini API / NLP logic for categorization & insights
+- **AI Module:** Gemini API
